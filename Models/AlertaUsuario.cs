@@ -1,26 +1,26 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-[Table("alerta_usuario")]
+[Table("ALERTA_USUARIO")]
 public class AlertaUsuario
 {
     [Key]
-    [Column("id_alerta")]
+    [Column("ID_ALERTA")]
     public int IdAlerta { get; set; }
 
-    [Column("data_alerta")]
+    [Column("DATA_ALERTA")]
     public DateTime? DataAlerta { get; set; }
 
-    [Column("gravidade")]
+    [Column("GRAVIDADE")]
     public string? Gravidade { get; set; }
 
-    [Column("id_localizacao")]
+    [Column("ID_LOCALIZACAO")]
     public int IdLocalizacao { get; set; }
 
-    [Column("id_usuario")]
+    [Column("ID_USUARIO")]
     public int IdUsuario { get; set; }
 
-    [Column("id_evento")]
+    [Column("ID_EVENTO")]
     public int IdEvento { get; set; }
 
     public AlertaUsuario() { }

@@ -2,16 +2,30 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. Add conexão com banco Oracle
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddOpenApi();
+// 2. Add serviços de API (controllers, swagger, etc.)
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// 3. Add dependências (caso esteja usando services e repositories)
+builder.Services.AddScoped<IAlertaUsuarioRepository, AlertaUsuarioRepository>();
+builder.Services.AddScoped<IAlertaUsuarioService, AlertaUsuarioService>();
 
 var app = builder.Build();
 
+// 4. Middleware
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();

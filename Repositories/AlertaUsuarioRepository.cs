@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 public class AlertaUsuarioRepository : IAlertaUsuarioRepository
 {
-    private readonly DbContext _context;
+    private readonly AppDbContext _context;
 
-    public AlertaUsuarioRepository(DbContext context)
+    public AlertaUsuarioRepository(AppDbContext context)
     {
         _context = context;
     }

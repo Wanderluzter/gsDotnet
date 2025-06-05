@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "Z1hRyAgL19kxEZYvQLp2YvhKmUbyAS9AIbKoLxmpNwI=",
+  "Source": "gsDotnet",
+  "BasePath": "_content/gsDotnet",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

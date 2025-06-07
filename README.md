@@ -75,8 +75,11 @@ cd gsDotnet
 dotnet restore
 dotnet ef database update
 dotnet run
+```
 
 Acesse via: http://localhost:5218/swagger
+
+---
 
 👥 Equipe
 Leonardo José - RM556110

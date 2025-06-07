@@ -1,0 +1,54 @@
+@page
+@model UsuarioGSModel
+@{
+    ViewData["Title"] = "Cadastrar Usuário";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.MensagemErro != null)
+{
+    <div class="alert alert-danger">@Model.MensagemErro</div>
+}
+@if (Model.MensagemSucesso != null)
+{
+    <div class="alert alert-success">@Model.MensagemSucesso</div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label>Nome</label>
+        <input asp-for="Usuario.Nome" class="form-control" />
+        <span asp-validation-for="Usuario.Nome" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Usuario.Email" class="form-control" />
+        <span asp-validation-for="Usuario.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Telefone</label>
+        <input asp-for="Usuario.Telefone" class="form-control" />
+        <span asp-validation-for="Usuario.Telefone" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Telefone de Emergência</label>
+        <input asp-for="Usuario.TelefoneEmergencia" class="form-control" />
+        <span asp-validation-for="Usuario.TelefoneEmergencia" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Senha</label>
+        <input asp-for="Usuario.Senha" class="form-control" type="password" />
+        <span asp-validation-for="Usuario.Senha" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

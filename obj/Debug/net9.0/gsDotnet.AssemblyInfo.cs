@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("gsDotnet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c6b8a9a59a3055114431affcc6e3a002af73d24")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67b33a13f8dfbf3a3b1d20faa4a324bf5bdcd128")]
 [assembly: System.Reflection.AssemblyProductAttribute("gsDotnet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("gsDotnet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

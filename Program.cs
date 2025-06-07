@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Add conexão com banco Oracle
+// 1. Conexão com banco Oracle
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. Add serviços de API (controllers, swagger, etc.)
+// 2. Serviços da API
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -15,13 +15,17 @@ builder.Services.AddHttpClient();
 builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 
-// 3. Add dependências (caso esteja usando services e repositories)
-builder.Services.AddScoped<IAlertaUsuarioRepository, AlertaUsuarioRepository>();
-builder.Services.AddScoped<IAlertaUsuarioService, AlertaUsuarioService>();
+// 3. Injeção de dependências – REPOSITORIES
+builder.Services.AddScoped<UsuarioGSRepository>();
+builder.Services.AddScoped<AlertaRepository>();
+
+// 4. Injeção de dependências – SERVICES
+builder.Services.AddScoped<UsuarioGSService>();
+builder.Services.AddScoped<AlertaService>();
 
 var app = builder.Build();
 
-// 4. Middleware
+// 5. Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,7 +34,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();

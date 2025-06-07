@@ -49,12 +49,19 @@ A proposta do SafeZone é entregar um sistema completo com as seguintes funciona
 ## 📂 Estrutura do Projeto
 
 /SafeZoneAPI
+
 ├── Controllers
+
 ├── Models
+
 ├── DTOs
+
 ├── Services
+
 ├── Data
+
 ├── Migrations
+
 └── Program.cs
 
 ---
@@ -82,6 +89,7 @@ Acesse via: http://localhost:5218/swagger
 ---
 
 👥 Equipe
+
 Leonardo José - RM556110
 
 Raul Clauson - RM555006

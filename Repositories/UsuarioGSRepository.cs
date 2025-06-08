@@ -9,40 +9,44 @@ public class UsuarioGSRepository
         _context = context;
     }
 
-    public IEnumerable<UsuarioGS> GetAll()
+    public async Task<IEnumerable<UsuarioGS>> GetAllAsync()
     {
-        return _context.Usuarios.Include(u => u.Alertas).ToList();
+        return await _context.Usuarios
+            .Include(u => u.Alertas)
+            .ToListAsync();
     }
 
-    public UsuarioGS? GetById(int id)
+    public async Task<UsuarioGS?> GetByIdAsync(int id)
     {
-        return _context.Usuarios.Include(u => u.Alertas).FirstOrDefault(u => u.IdUsuario == id);
+        return await _context.Usuarios
+            .Include(u => u.Alertas)
+            .FirstOrDefaultAsync(u => u.IdUsuario == id);
     }
 
-    public void Add(UsuarioGS usuario)
+    public async Task AddAsync(UsuarioGS usuario)
     {
-        _context.Usuarios.Add(usuario);
-        _context.SaveChanges();
+        await _context.Usuarios.AddAsync(usuario);
+        await _context.SaveChangesAsync();
     }
 
-    public void Update(UsuarioGS usuario)
+    public async Task UpdateAsync(UsuarioGS usuario)
     {
         _context.Usuarios.Update(usuario);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        var usuario = _context.Usuarios.Find(id);
+        var usuario = await _context.Usuarios.FindAsync(id);
         if (usuario != null)
         {
             _context.Usuarios.Remove(usuario);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 
-    public bool ExistsByEmail(string email)
+    public async Task<bool> ExistsByEmailAsync(string email)
     {
-        return _context.Usuarios.Any(u => u.Email == email);
+        return await _context.Usuarios.AnyAsync(u => u.Email == email);
     }
 }

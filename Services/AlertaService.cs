@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 public class AlertaService
 {
     private readonly AppDbContext _context;
@@ -7,9 +13,9 @@ public class AlertaService
         _context = context;
     }
 
-    public IEnumerable<AlertaReadDTO> GetAll()
+    public async Task<IEnumerable<AlertaReadDTO>> GetAllAsync()
     {
-        return _context.Alertas
+        return await _context.Alertas
             .Select(a => new AlertaReadDTO
             {
                 IdAlerta = a.IdAlerta,
@@ -18,12 +24,12 @@ public class AlertaService
                 Latitude = a.Latitude,
                 Longitude = a.Longitude
             })
-            .ToList();
+            .ToListAsync();
     }
 
-    public IEnumerable<AlertaReadDTO> GetByUsuarioId(int idUsuario)
+    public async Task<IEnumerable<AlertaReadDTO>> GetByUsuarioIdAsync(int idUsuario)
     {
-        return _context.Alertas
+        return await _context.Alertas
             .Where(a => a.IdUsuario == idUsuario)
             .Select(a => new AlertaReadDTO
             {
@@ -33,12 +39,12 @@ public class AlertaService
                 Latitude = a.Latitude,
                 Longitude = a.Longitude
             })
-            .ToList();
+            .ToListAsync();
     }
 
-    public void Create(AlertaCreateDTO dto)
+    public async Task CreateAsync(AlertaCreateDTO dto)
     {
-        var usuario = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == dto.IdUsuario);
+        var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == dto.IdUsuario);
         if (usuario == null)
             throw new Exception("Usuário não encontrado.");
 
@@ -51,7 +57,30 @@ public class AlertaService
             IdUsuario = dto.IdUsuario
         };
 
-        _context.Alertas.Add(alerta);
-        _context.SaveChanges();
+        await _context.Alertas.AddAsync(alerta);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(int id, AlertaCreateDTO dto)
+    {
+        var alerta = await _context.Alertas.FindAsync(id);
+        if (alerta == null)
+            throw new Exception("Alerta não encontrado.");
+
+        alerta.Descricao = dto.Descricao;
+        alerta.Latitude = dto.Latitude;
+        alerta.Longitude = dto.Longitude;
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        var alerta = await _context.Alertas.FindAsync(id);
+        if (alerta == null)
+            throw new Exception("Alerta não encontrado.");
+
+        _context.Alertas.Remove(alerta);
+        await _context.SaveChangesAsync();
     }
 }

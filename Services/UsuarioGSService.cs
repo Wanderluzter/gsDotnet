@@ -33,4 +33,34 @@ public class UsuarioGSService
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
     }
+
+    public void Update(int id, UsuarioGSCreateDTO dto)
+{
+    var usuario = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
+    if (usuario == null)
+    {
+        throw new Exception("Usuário não encontrado");
+    }
+
+    usuario.Nome = dto.Nome;
+    usuario.Telefone = dto.Telefone;
+    usuario.TelefoneEmergencia = dto.TelefoneEmergencia;
+    usuario.Email = dto.Email;
+    usuario.Senha = dto.Senha;
+
+    _context.SaveChanges();
+}
+
+public void Delete(int id)
+{
+    var usuario = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
+    if (usuario == null)
+    {
+        throw new Exception("Usuário não encontrado");
+    }
+
+    _context.Usuarios.Remove(usuario);
+    _context.SaveChanges();
+}
+
 }

@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class AlertaRepository
 {
@@ -9,34 +11,40 @@ public class AlertaRepository
         _context = context;
     }
 
-    public IEnumerable<Alerta> GetAll()
+    public async Task<IEnumerable<Alerta>> GetAllAsync()
     {
-        return _context.Alertas.Include(a => a.Usuario).ToList();
+        return await _context.Alertas
+            .Include(a => a.Usuario)
+            .ToListAsync();
     }
 
-    public IEnumerable<Alerta> GetByUsuarioId(int idUsuario)
+    public async Task<IEnumerable<Alerta>> GetByUsuarioIdAsync(int idUsuario)
     {
-        return _context.Alertas.Where(a => a.IdUsuario == idUsuario).ToList();
+        return await _context.Alertas
+            .Where(a => a.IdUsuario == idUsuario)
+            .ToListAsync();
     }
 
-    public Alerta? GetById(int id)
+    public async Task<Alerta?> GetByIdAsync(int id)
     {
-        return _context.Alertas.Include(a => a.Usuario).FirstOrDefault(a => a.IdAlerta == id);
+        return await _context.Alertas
+            .Include(a => a.Usuario)
+            .FirstOrDefaultAsync(a => a.IdAlerta == id);
     }
 
-    public void Add(Alerta alerta)
+    public async Task AddAsync(Alerta alerta)
     {
-        _context.Alertas.Add(alerta);
-        _context.SaveChanges();
+        await _context.Alertas.AddAsync(alerta);
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        var alerta = _context.Alertas.Find(id);
+        var alerta = await _context.Alertas.FindAsync(id);
         if (alerta != null)
         {
             _context.Alertas.Remove(alerta);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
